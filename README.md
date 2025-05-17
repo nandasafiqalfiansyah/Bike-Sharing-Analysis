@@ -7,7 +7,6 @@ Dashboard ini menggunakan Streamlit untuk menampilkan visualisasi data *Bike Sha
 1. **Clone repository**
    ```bash
    git clone https://github.com/nandasafiqalfiansyah/Bike-Sharing-Analysis
-````
 
 2. **Masuk ke folder proyek**
 
@@ -34,5 +33,3 @@ Dashboard ini menggunakan Streamlit untuk menampilkan visualisasi data *Bike Sha
    ```
    http://localhost:8501
    ```
-
----
