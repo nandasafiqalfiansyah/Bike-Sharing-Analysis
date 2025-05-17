@@ -6,8 +6,8 @@ import seaborn as sns
 # Load data
 @st.cache_data
 def load_data():
-    url_day = "../data/day.csv"
-    url_hour = "../data/hour.csv"
+    url_day = "./data/day.csv"
+    url_hour = "./data/hour.csv"
     day_df = pd.read_csv(url_day)
     hour_df = pd.read_csv(url_hour)
     
