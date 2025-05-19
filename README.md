@@ -24,7 +24,8 @@ Dashboard ini menggunakan Streamlit untuk menampilkan visualisasi data *Bike Sha
 4. **Jalankan aplikasi Streamlit**
 
    ```bash
-   streamlit run dashboard.py
+   python -m streamlit run dashboard.py
+
    ```
 
 5. **Buka aplikasi di browser**

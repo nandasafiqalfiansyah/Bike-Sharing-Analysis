@@ -40,10 +40,26 @@ tab1, tab2 = st.tabs(["Seasonal & Weather Analysis", "Working Day vs Holiday Ana
 with tab1:
     st.header("Pengaruh Musim dan Cuaca terhadap Penyewaan Sepeda")
     
+    # --- Fitur interaktif ---
+    min_date = day_df['dteday'].min()
+    max_date = day_df['dteday'].max()
+    date_range = st.date_input("Pilih rentang tanggal:", [min_date, max_date],
+                              min_value=min_date, max_value=max_date)
+    
+    seasons = day_df['season'].unique().tolist()
+    selected_seasons = st.multiselect("Pilih musim:", seasons, default=seasons)
+    
+    # Filter data berdasarkan input user
+    filtered_day_df = day_df[
+        (day_df['dteday'] >= pd.to_datetime(date_range[0])) &
+        (day_df['dteday'] <= pd.to_datetime(date_range[1])) &
+        (day_df['season'].isin(selected_seasons))
+    ]
+    
     # Season analysis
     st.subheader("Distribusi Penyewaan berdasarkan Musim")
     fig1, ax1 = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x='season', y='cnt', data=day_df, ax=ax1)
+    sns.boxplot(x='season', y='cnt', data=filtered_day_df, ax=ax1)
     ax1.set_title('Bike Rentals by Season')
     ax1.set_xlabel('Season')
     ax1.set_ylabel('Total Rentals')
@@ -52,7 +68,7 @@ with tab1:
     # Weather analysis
     st.subheader("Distribusi Penyewaan berdasarkan Kondisi Cuaca")
     fig2, ax2 = plt.subplots(figsize=(10, 6))
-    sns.boxplot(x='weathersit', y='cnt', data=day_df, ax=ax2)
+    sns.boxplot(x='weathersit', y='cnt', data=filtered_day_df, ax=ax2)
     ax2.set_title('Bike Rentals by Weather Situation')
     ax2.set_xlabel('Weather Situation')
     ax2.set_ylabel('Total Rentals')
@@ -101,5 +117,3 @@ with tab2:
         - Hari kerja: puncak jam 8 pagi dan 5-6 sore (jam komuter)
         - Hari libur: pola lebih merata dengan puncak tengah hari
     """)
-
-# Run with: streamlit run dashboard.py
